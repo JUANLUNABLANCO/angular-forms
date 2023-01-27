@@ -1,0 +1,99 @@
+.error {
+    color: darkred;
+    font-size: .8rem;
+}
+
+.messages {
+    opacity: 0;
+    transition: all 0.5s ease-in;
+    padding-left: 1rem;
+    &.active {
+        opacity: 1;
+    }
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='tel'],
+input[type='date'],
+select {
+    border: 3px solid;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin: 0.25rem;
+    min-width: 125px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    transition: background-color 0.5s ease-out;
+    &:focus {
+        outline: none;
+        background: white;
+        border-bottom: 2px solid #555;
+        box-shadow: 0 2px 5px #AAA;
+    }
+    &.is-invalid {
+        background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% #FC9400;
+        background-size: 25px;
+    }
+    &.is-valid {
+        background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
+        background-size: 25px;
+    }
+    &.is-optional {
+        border: 1px solid rgb(199, 198, 198);
+    }
+}
+
+input[type='checkbox'] {
+    border: 3px solid;
+    transition: background-color 0.5s ease-out;
+    &:focus {
+        outline: none;
+        background: white;
+        border-bottom: 2px solid #555;
+        box-shadow: 0 2px 5px #AAA;
+    }
+    &.is-invalid {
+        background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% #FC9400;
+        background-size: 25px;
+    }
+    &.is-valid {
+        background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
+        background-size: 25px;
+    }
+    &.is-optional {
+        border: 1px solid rgb(199, 198, 198);
+    }
+}
+
+button {
+    border: 1px solid #3F51B5;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    color: #fff;
+    padding: .5rem;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.5s ease-out;
+    &:enabled {
+        background-color: rgba(90, 100, 233, 0.6);
+        opacity: 1;
+        box-shadow: 0 3px 10px 0 #39d6ee;
+    }
+    &:disabled {
+        background-color: rgb(169, 168, 168);
+        border-color: white;
+        opacity: .7;
+        box-shadow: none;
+    }
+}
+
+form {
+    mat-form-field {
+        width: calc(100% - 6px);
+    }
+}

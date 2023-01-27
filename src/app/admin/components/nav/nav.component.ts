@@ -31,5 +31,4 @@ export class NavComponent {
       this.router.navigate(['./home']);
     });
   }
-
 }
