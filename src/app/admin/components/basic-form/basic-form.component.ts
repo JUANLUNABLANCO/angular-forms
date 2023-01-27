@@ -38,10 +38,11 @@ export class BasicFormComponent implements OnInit {
         last:['', [Validators.required, Validators.maxLength(30), Validators.pattern(/^([a-zA-ZÁÉÍÓÚáéíóúÀÈÌÒÙàèìòùüÜÑñ]{3,}\s?){1,2}$/)]],
       }),
       email: ['', [Validators.required, Validators.email]],
-      phone: ['000000000'],
+      // +34609443529
+      phone: ['', [Validators.minLength(9), Validators.pattern(/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{2,9}\)?[\s.-]?\d{3,9}[\s.-]?\d{4,12}$/)]],
       color: ['#c62424'],
       date: [''],
-      age: [18, [Validators.required,Validators.max(65)]],
+      age: [18, [Validators.required,Validators.min(18), Validators.required,Validators.max(65)]],
       // selects
       category: ['category-1'],
       tag: [''],
@@ -87,6 +88,12 @@ export class BasicFormComponent implements OnInit {
   // phone
   get phoneField() {
     return this.form_basic.get('phone');
+  }
+  get isPhoneFieldValid() {
+    return this.phoneField.touched && this.phoneField.valid;
+  }
+  get isPhoneFieldInvalid() {
+    return this.phoneField.touched && this.phoneField.invalid;
   }
   // color
   get colorField() {

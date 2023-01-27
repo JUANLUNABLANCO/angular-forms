@@ -22,37 +22,37 @@
         <div class="messages" [class.active]="isNameFieldInvalid">
             <mat-error *ngIf="nameField.hasError('required')">Name field is required</mat-error>
             <mat-error *ngIf="nameField.hasError('maxlength')">max length 30</mat-error>
-            <mat-error *ngIf="nameField.hasError('pattern')">Characters not permitted</mat-error>
+            <mat-error *ngIf="nameField.hasError('pattern')">Characters not permitted or min length 3</mat-error>
         </div>
         <!-- LAST  -->
-        <p>
-            Last Name: {{ lastField.value }}, valid: {{ lastField.valid }}
-            <br>
-            <input type="text" formControlName="last" [ngClass]="{ 'is-valid': isLastFieldValid, 'is-invalid': isLastFieldInvalid }" />
-            <br>
-        </p>
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name: {{ lastField.value }}, valid: {{ lastField.valid }}</mat-label>
+            <input matInput type="text" formControlName="last" [ngClass]="{ 'is-valid': isLastFieldValid, 'is-invalid': isLastFieldInvalid }">
+        </mat-form-field>
         <div class="messages" [class.active]="isLastFieldInvalid">
-            <strong class="error" *ngIf="lastField.hasError('required')">Name field is required</strong>
-            <strong class="error" *ngIf="lastField.hasError('maxlength')">max length 30</strong>
-            <strong class="error" *ngIf="lastField.hasError('pattern')">Characters not permited</strong>
+            <mat-error *ngIf="lastField.hasError('required')">Name field is required</mat-error>
+            <mat-error *ngIf="lastField.hasError('maxlength')">max length 30</mat-error>
+            <mat-error *ngIf="lastField.hasError('pattern')">Characters not permitted or min length 3</mat-error>
         </div>
     </div>
     <!-- EMAIL -->
-    <p>
-        Email: {{ emailField.value }}
-        <br>
-        <input type="email" formControlName="email" [ngClass]="{ 'is-valid': isEmailFieldValid, 'is-invalid': isEmailFieldInvalid }" />
-    </p>
-    <div class="messages" [class.active]="emailField.touched && isEmailFieldInvalid">
-        <strong class="error" *ngIf="emailField.hasError('required')">email field is required</strong>
-        <strong class="error" *ngIf="emailField.hasError('email')">No es un email válido</strong>
+    <mat-form-field appearance="fill">
+        <mat-label>Email: {{ emailField.value }}, valid: {{ emailField.valid }}</mat-label>
+        <input matInput type="email" formControlName="email" [ngClass]="{ 'is-valid': isEmailFieldValid, 'is-invalid': isEmailFieldInvalid }">
+    </mat-form-field>
+    <div class="messages" [class.active]="isEmailFieldInvalid">
+        <mat-error *ngIf="emailField.hasError('required')">Email field is required</mat-error>
+        <mat-error *ngIf="emailField.hasError('email')">Email incorrect</mat-error>
     </div>
     <!-- PHONE  -->
-    <p>
-        Phone: {{ phoneField.value }}
-        <br>
-        <input type="tel" formControlName="phone" class="is-optional" />
-    </p>
+    <mat-form-field appearance="fill">
+        <mat-label>Phone (optional): {{ phoneField.value }}</mat-label>
+        <input matInput type="tel" placeholder="+34609553518" formControlName="phone" [ngClass]="{ 'is-valid': isPhoneFieldValid, 'is-invalid': isPhoneFieldInvalid, 'is-optional': true }">
+    </mat-form-field>
+    <div class="messages" [class.active]="isPhoneFieldInvalid">
+        <mat-error *ngIf="phoneField.hasError('pattern')">Phone incorrect</mat-error>
+        <mat-error *ngIf="phoneField.hasError('minlength')">This is a too small number. Is is-optional</mat-error>
+    </div>
     <!-- COLOR -->
     <p>
         Color: {{ colorField.value }}
@@ -61,49 +61,67 @@
     </p>
     <!-- DATE -->
     <p>
-        Date: {{ dateField.value }}
+        Date: {{ dateField.value | date: 'yyyy/MM/dd' }}
         <br>
-        <input type="date" formControlName="date" />
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="date" formControlName="date">
+            <!-- <mat-hint>YYYY/MM/DD</mat-hint> -->
+            <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+        </mat-form-field>
     </p>
     <!-- AGE -->
-    <p>
-        Age: {{ ageField.value }}
-        <br>
-        <input type="number" formControlName="age" />
-    </p>
+    Age: {{ ageField.value }}
+    <br>
+    <mat-form-field appearance="fill">
+        <input matInput type="number" formControlName="age" class="optional" [ngClass]="{ 'is-valid': isAgeFieldValid, 'is-invalid': isAgeFieldInvalid }" />
+    </mat-form-field>
     <div class="messages" [class.active]="ageField.touched && isAgeFieldInvalid">
         <strong class="error" *ngIf="ageField.hasError('required')">Age field is required</strong>
-        <!-- <strong class="error" *ngIf="ageField.hasError('min')">min age 18</strong> -->
+        <strong class="error" *ngIf="ageField.hasError('min')">min age 18</strong>
         <strong class="error" *ngIf="ageField.hasError('max')">max age 65</strong>
     </div>
     <!-- CATEGORY -->
-    <p>
-        Category: {{ categoryField.value }}
-        <select formControlName="category">
-        <option value="category-1">Categoria uno</option>
-        <option value="category-2">Categoria dos</option>
-        <option value="category-3">Categoria tres</option>
-        <option value="category-4">Categoria cuatro</option>
-        <option value="category-5">Categoria cinco</option>
-      </select>
-    </p>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category: {{ categoryField.value }}</mat-label>
+        <mat-select formControlName="category">
+            <mat-option value="category-1">First category</mat-option>
+            <mat-option value="category-2">Second category</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
     <!-- TAG -->
-    <p>
-        Tags: {{ tagField.value }}
-        <select formControlName="tag" multiple>
-      <option value="tag-1">tag #uno</option>
-      <option value="tag-2">tag #dos</option>
-      <option value="tag-3">tag #tres</option>
-      <option value="tag-4">tag #cuatro</option>
-      <option value="tag-5">tag #cinco</option>
-    </select>
-    </p>
+    <mat-form-field appearance="fill">
+        <mat-label>Tags: {{ tagField.value }}</mat-label>
+        <mat-select formControlName="tag">
+            <mat-option value="tag-1">tag #uno</mat-option>
+            <mat-option value="tag-2">tag #dos</mat-option>
+            <mat-option value="tag-3">tag #tres</mat-option>
+            <mat-option value="tag-4">tag #cuatro</mat-option>
+            <mat-option value="tag-5">tag #cinco</mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <!-- AGREE -->
-    <p>
-        Agree: {{ agreeField.value }}
-        <br>
-        <input type="checkbox" formControlName="agree" />
-    </p>
+
+    Agree: {{ agreeField.value }}
+
+    <!-- <input type="checkbox" formControlName="agree" />
+        <mat-icon matSuffix *ngIf="agreeField.value==true" class="agree_valid">done</mat-icon>
+        <mat-icon matSuffix *ngIf="agreeField.value==false" class="agree_error">close</mat-icon> -->
+    <div class="wrapper_3d_switch">
+        <label class="switch">
+          <input type="checkbox" checked formControlName="agree"/>
+          <div class="indicator left"></div>
+          <div class="indicator right"></div>
+          <div class="button"></div>
+        </label>
+    </div>
+
     <!-- GENDER  -->
     <p>
         Gender: {{ genderField.value }}
