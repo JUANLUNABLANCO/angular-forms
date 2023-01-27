@@ -1,37 +1,44 @@
 <form [formGroup]="form" (ngSubmit)="register($event)">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Registro</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input placeholder="email" formControlName="email" matInput type="email">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <mat-label>Confirm Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button [disabled]="form.invalid" mat-raised-button type="submit">Registro</button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Registro</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input placeholder="email" formControlName="email" matInput type="email">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input placeholder="password" formControlName="password" matInput type="text">
+                    </mat-form-field>
+                    <div class="messages" [class.active]="isPasswordFieldInvalid">
+                        <mat-error *ngIf="passwordField.hasError('invalid_password')">Password must to have a number</mat-error>
+                        <mat-error *ngIf="passwordField.hasError('minlength')">This is a too small password, min 8 characters</mat-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <mat-label>Confirm Password</mat-label>
+                        <input placeholder="password" formControlName="confirmPassword" matInput type="text">
+                    </mat-form-field>
+                    <div class="messages" [class.active]="isConfirmPasswordFieldInvalid">
+                        <mat-error *ngIf="form.hasError('match_passwords')">Not Match Passwords!</mat-error>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button [disabled]="form.invalid" mat-raised-button type="submit">Registro</button>
+        </mat-card-actions>
+    </mat-card>
 
 </form>

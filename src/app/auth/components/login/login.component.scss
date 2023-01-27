@@ -7,6 +7,12 @@ $primary: mat-palette($mat-indigo);
   background-color: #3f51b5;
   display: block;
 }
+a.link {
+  font-size: .8rem;
+  color: blue;
+  text-decoration: underline;
+  cursor:pointer; 
+}
   // --background: linear-gradient(90deg, #1c3643, #273b47 25%, #1e5372);
 form {
   width: 90%;

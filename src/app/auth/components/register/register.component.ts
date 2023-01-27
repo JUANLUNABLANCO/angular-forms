@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from './../../../core/services/auth.service';
 
+import { MyValidators } from './../../../utils/validators';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -38,8 +40,23 @@ export class RegisterComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8), MyValidators.validatePassword]],
+      confirmPassword:['', [Validators.required]]
+    }, {
+      // validacion grupal entre password y confirmPassword
+      validators:  MyValidators.matchPasswords
     });
   }
-
+  get passwordField() {
+    return this.form.get('password');
+  }
+  get isPasswordFieldInvalid() {
+    return this.passwordField.touched && this.passwordField.invalid;
+  }
+  get confirmPassword() {
+    return this.form.get('confirmPassword');
+  }
+  get isConfirmPasswordFieldInvalid() {
+    return this.confirmPassword.touched && this.form.errors; 
+  }
 }
